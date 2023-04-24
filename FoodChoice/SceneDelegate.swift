@@ -8,7 +8,11 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    private enum Constants {
+        static let loginNavigationControllerIdentifier = "LoginNavigationController"
+        static let MainNavigationControllerIdentifier = "MainNavigationController"
+        static let storyboardIdentifier = "Main"
+    }
     var window: UIWindow?
 
 
@@ -17,8 +21,53 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+
+        NotificationCenter.default.addObserver(forName: Notification.Name("login"), object: nil, queue: OperationQueue.main) { [weak self] _ in
+            self?.login()
+        }
+
+        NotificationCenter.default.addObserver(forName: Notification.Name("logout"), object: nil, queue: OperationQueue.main) { [weak self] _ in
+            self?.logOut()
+        }
+
+        // TODO: Pt 1 - Check for cached user for persisted log in.
+        
+        if User.current != nil {
+            login()
+        }
+
     }
 
+    private func login() {
+        let storyboard = UIStoryboard(name: Constants.storyboardIdentifier, bundle: nil)
+        self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: Constants.MainNavigationControllerIdentifier)
+    }
+    
+    private func logOut() {
+        // TODO: Pt 1 - Log out Parse user.
+        User.logout { [weak self] result in
+
+            switch result {
+            case .success:
+
+                // Make sure UI updates are done on main thread when initiated from background thread.
+                DispatchQueue.main.async {
+
+                    // Instantiate the storyboard that contains the view controller you want to go to (i.e. destination view controller).
+                    let storyboard = UIStoryboard(name: Constants.storyboardIdentifier, bundle: nil)
+
+                    // Instantiate the destination view controller (in our case it's a navigation controller) from the storyboard.
+                    let viewController = storyboard.instantiateViewController(withIdentifier: Constants.loginNavigationControllerIdentifier)
+
+                    // Programmatically set the current displayed view controller.
+                    self?.window?.rootViewController = viewController
+                }
+            case .failure(let error):
+                print("❌ Log out error: \(error)")
+            }
+        }
+
+    }
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
