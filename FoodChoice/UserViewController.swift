@@ -6,14 +6,32 @@
 //
 
 import UIKit
-
+protocol UserViewControllerDelegate: AnyObject {
+    func didLogout()
+}
 class UserViewController: UIViewController {
 
-    @IBOutlet weak var logOutButton: UIButton!
+    weak var delegate: UserViewControllerDelegate?
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-    @IBAction func onLogOutTapped(_ sender: UIBarButtonItem) {
-        showConfirmLogoutAlert()
     }
+    @IBAction func onSignOutTapped(_ sender: UIButton) {
+//        showConfirmLogoutAlert()
+        User.logout { [weak self] result in
+                guard let self = self else { return }
+                showConfirmLogoutAlert()
+                switch result {
+                case .success:
+                    // Call the delegate method to notify the SceneDelegate that the user has logged out.
+                    delegate?.didLogout()
+                    
+                case .failure(let error):
+                    print("❌ Log out error: \(error)")
+                }
+            }
+    }
+    
     
     private func showConfirmLogoutAlert() {
         let alertController = UIAlertController(title: "Log out of your account?", message: nil, preferredStyle: .alert)
