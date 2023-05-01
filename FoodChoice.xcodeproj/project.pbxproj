@@ -66,16 +66,15 @@
 		02528E4029E89BAD0058878D /* FoodChoice */ = {
 			isa = PBXGroup;
 			children = (
+				70C76AF429FB014300AAF720 /* UserAuthentication */,
 				70C76AED29F1BD9200AAF720 /* models */,
 				02528E4129E89BAD0058878D /* AppDelegate.swift */,
 				70C76AF229F4D00300AAF720 /* MainViewController.swift */,
 				02528E4329E89BAD0058878D /* SceneDelegate.swift */,
-				02528E4529E89BAD0058878D /* LoginViewController.swift */,
 				02528E4729E89BAD0058878D /* Main.storyboard */,
 				02528E4A29E89BAF0058878D /* Assets.xcassets */,
 				02528E4C29E89BAF0058878D /* LaunchScreen.storyboard */,
 				02528E4F29E89BAF0058878D /* Info.plist */,
-				70C76AF029F1C20900AAF720 /* SignUpViewController.swift */,
 				02DCAF0729F699AA001ED6C0 /* UserViewController.swift */,
 			);
 			path = FoodChoice;
@@ -87,6 +86,15 @@
 				70C76AEE29F1BF5D00AAF720 /* User.swift */,
 			);
 			path = models;
+			sourceTree = "<group>";
+		};
+		70C76AF429FB014300AAF720 /* UserAuthentication */ = {
+			isa = PBXGroup;
+			children = (
+				02528E4529E89BAD0058878D /* LoginViewController.swift */,
+				70C76AF029F1C20900AAF720 /* SignUpViewController.swift */,
+			);
+			path = UserAuthentication;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

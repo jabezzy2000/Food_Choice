@@ -28,8 +28,8 @@ class UserViewController: UIViewController {
                     
                 case .failure(let error):
                     print("❌ Log out error: \(error)")
-                }
             }
+        }
     }
     
     

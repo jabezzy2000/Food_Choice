@@ -8,6 +8,7 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, UserViewControllerDelegate {
+    
     func didLogout() {
         logOut()
     }
@@ -30,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UserViewControllerDeleg
 
         NotificationCenter.default.addObserver(forName: Notification.Name("login"), object: nil, queue: OperationQueue.main) { [weak self] _ in
             self?.login()
-            print("yessir")
+          
         }
 
         NotificationCenter.default.addObserver(forName: Notification.Name("logout"), object: nil, queue: OperationQueue.main) { [weak self] _ in
@@ -71,7 +72,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UserViewControllerDeleg
 
                     // Programmatically set the current displayed view controller.
                     self?.window?.rootViewController = viewController
-                    print("yessir")
+              
                 }
                 
             case .failure(let error):
