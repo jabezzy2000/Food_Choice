@@ -20,11 +20,11 @@ class UserViewController: UIViewController {
 //        showConfirmLogoutAlert()
         User.logout { [weak self] result in
                 guard let self = self else { return }
-                self.showConfirmLogoutAlert()
+                showConfirmLogoutAlert()
                 switch result {
                 case .success:
                     // Call the delegate method to notify the SceneDelegate that the user has logged out.
-                    self.delegate?.didLogout()
+                    delegate?.didLogout()
                     
                 case .failure(let error):
                     print("❌ Log out error: \(error)")

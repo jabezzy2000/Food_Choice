@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import ParseSwift
 
 
 class MainViewController: UIViewController {
@@ -34,49 +33,8 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func onInviteTapped(_ sender: UIButton) {
-        
     }
-    private func sendInvitations() {
-        let inviter = "SomeInviter" // Replace with the actual inviter's username or name
-
-        for recipientUsername in users {
-            let query = User.query()
-            query.where(key: "username", recipientUsername)
-            //query.where(<#T##constraints: QueryConstraint...##QueryConstraint#>)
-            query.first { result in
-                switch result {
-                case .success(let recipient):
-                    let notification = InAppNotification(recipient: recipient, inviter: inviter, message: "You've been invited to join a group by \(inviter).")
-                    notification.save { result in
-                        switch result {
-                        case .success:
-                            print("In-app notification saved successfully.")
-                        case .failure(let error):
-                            print("Error saving in-app notification: \(error.localizedDescription)")
-                        }
-                    }
-                case .failure(let error):
-                    print("Error fetching recipient: \(error.localizedDescription)")
-                }
-            }
-        }
-    }
-
-    func fetchNotifications() {
-        let query = InAppNotification.query()
-        query.where(key: "recipient", equalTo: User.current!)
-        query.where(key: "isRead", equalTo: false)
-        query.find { result in
-            switch result {
-            case .success(let notifications): break
-                // Display the notifications in the app, e.g., in a table view
-            case .failure(let error):
-                print("Error fetching notifications: \(error.localizedDescription)")
-            }
-        }
-    }
-
-
+    
     private func showMissingFieldsAlert() {
         let alertController = UIAlertController(title: "Opps...", message: "We need all fields filled out in order to sign you up.", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default)
