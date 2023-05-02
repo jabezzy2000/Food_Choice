@@ -17,7 +17,6 @@ class UserViewController: UIViewController {
 
     }
     @IBAction func onSignOutTapped(_ sender: UIButton) {
-//        showConfirmLogoutAlert()
         User.logout { [weak self] result in
                 guard let self = self else { return }
                 self.showConfirmLogoutAlert()

@@ -8,9 +8,22 @@
 import Foundation
 import ParseSwift
 
-struct InAppNotification: ParseObject, Codable {
+struct GroupSession: ParseObject, Codable {
+    // Remove the init() function if it's not needed, or provide an implementation.
     init() {
-        <#code#>
+        inviter = ""
+        message = ""
+        isRead = false
+    }
+
+    static var parseClassName: String {
+            return "GroupSession"
+        }
+    init(recipient: User, inviter: String, message: String) {
+        self.recipient = try? Pointer(recipient)
+        self.inviter = inviter
+        self.message = message
+        self.isRead = false
     }
     
     var originalData: Data?
@@ -23,13 +36,6 @@ struct InAppNotification: ParseObject, Codable {
     var inviter: String
     var message: String
     var isRead: Bool
-
-    init(recipient: User, inviter: String, message: String) {
-        self.recipient = try? Pointer(recipient)
-        self.inviter = inviter
-        self.message = message
-        self.isRead = false
-    }
 
     enum CodingKeys: String, CodingKey {
         case objectId

@@ -1,80 +1,114 @@
-//
-//  MainViewController.swift
-//  FoodChoice
-//
-//  Created by Phinehas Fuachie on 4/22/23.
-//
-
 import UIKit
 import ParseSwift
 
 
 class MainViewController: UIViewController {
     var users: Set<String> = []
-    @IBOutlet weak var InvitationTextField: UITextField!
-  @IBOutlet weak var GroupSize: UILabel!
     
+    @IBOutlet weak var InvitationTextField: UITextField!
+    @IBOutlet weak var GroupSize: UILabel!
+    var hasDisplayedInvitations: Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        if !hasDisplayedInvitations {
+            fetchGroupSessions()
+            hasDisplayedInvitations = true
+        }
     }
-    
+
     @IBAction func onAddTapped(_ sender: UIButton) {
         guard let username = InvitationTextField.text,
-              !username.isEmpty else{showMissingFieldsAlert(); return}
+              !username.isEmpty else { showMissingFieldsAlert(); return }
         if let currentGroupSize = GroupSize.text, let groupSizeInt = Int(currentGroupSize) {
             GroupSize.text = "\(groupSizeInt + 1)"
             users.insert(username)
         } else {
             // Handle the error condition here, such as displaying an error message to the user.
-            
         }
-        
+    }
+
+    @IBAction func onInviteTapped(_ sender: UIButton) {
+        sendInvitations()
     }
     
-    @IBAction func onInviteTapped(_ sender: UIButton) {
-        
-    }
+
+    
     private func sendInvitations() {
-        let inviter = "SomeInviter" // Replace with the actual inviter's username or name
+        let inviter = User.current?.username // Replace with the actual inviter's username or name
 
         for recipientUsername in users {
-            let query = User.query()
-            query.where(key: "username", recipientUsername)
-            //query.where(<#T##constraints: QueryConstraint...##QueryConstraint#>)
-            query.first { result in
-                switch result {
-                case .success(let recipient):
-                    let notification = InAppNotification(recipient: recipient, inviter: inviter, message: "You've been invited to join a group by \(inviter).")
-                    notification.save { result in
-                        switch result {
-                        case .success:
-                            print("In-app notification saved successfully.")
-                        case .failure(let error):
-                            print("Error saving in-app notification: \(error.localizedDescription)")
-                        }
-                    }
-                case .failure(let error):
-                    print("Error fetching recipient: \(error.localizedDescription)")
+            let query = User.query("username" == recipientUsername)
+            do {
+                let recipient = try query.first()
+                let groupSession = GroupSession(recipient: recipient, inviter: inviter ?? "", message: "You've been invited to join a group by \(String(describing: inviter)).")
+                do {
+                    try groupSession.save()
+                    print("Group session saved successfully.")
+                } catch {
+                    print("Error saving group session: \(error.localizedDescription)")
                 }
+            } catch {
+                print("Error fetching recipient: \(error.localizedDescription)")
+            }
+        }
+    }
+    func showInvitationAlert(groupSession: GroupSession) {
+        let alertController = UIAlertController(title: "Invitation", message: groupSession.message, preferredStyle: .alert)
+        
+        let acceptAction = UIAlertAction(title: "Accept", style: .default) { _ in
+            // Handle the acceptance of the invitation and update the groupSession object accordingly
+        }
+        
+        let declineAction = UIAlertAction(title: "Decline", style: .destructive) { _ in
+            // Handle the declination of the invitation and update the groupSession object accordingly
+        }
+        
+        let laterAction = UIAlertAction(title: "Later", style: .cancel)
+        
+        alertController.addAction(acceptAction)
+        alertController.addAction(declineAction)
+        alertController.addAction(laterAction)
+        
+        present(alertController, animated: true)
+    }
+
+    func fetchGroupSessions() {
+        let query = GroupSession.query("recipient" == User.current?.username)
+        query.find { result in
+            switch result {
+            case .success(let groupSessions):
+                // Display the group sessions in the app, e.g., in a table view
+                print("Found \(groupSessions.count) group sessions.")
+                for groupSession in groupSessions {
+                    print("Group Session: \(groupSession)")
+                    // Call showInvitationAlert() for each invitation
+                    self.showInvitationAlert(groupSession: groupSession)
+                }
+            case .failure(let error):
+                print("Error fetching group sessions: \(error.localizedDescription)")
             }
         }
     }
 
-    func fetchNotifications() {
-        let query = InAppNotification.query()
-        query.where(key: "recipient", equalTo: User.current!)
-        query.where(key: "isRead", equalTo: false)
-        query.find { result in
-            switch result {
-            case .success(let notifications): break
-                // Display the notifications in the app, e.g., in a table view
-            case .failure(let error):
-                print("Error fetching notifications: \(error.localizedDescription)")
-            }
-        }
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
 
 
     private func showMissingFieldsAlert() {
@@ -92,5 +126,4 @@ class MainViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }
