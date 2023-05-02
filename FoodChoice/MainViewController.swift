@@ -16,6 +16,7 @@ class MainViewController: UIViewController {
             fetchGroupSessions()
             hasDisplayedInvitations = true
         }
+        printRecipients()
     }
 
     @IBAction func onAddTapped(_ sender: UIButton) {
@@ -31,29 +32,33 @@ class MainViewController: UIViewController {
 
     @IBAction func onInviteTapped(_ sender: UIButton) {
         sendInvitations()
+        
     }
     
 
     
     private func sendInvitations() {
         let inviter = User.current?.username // Replace with the actual inviter's username or name
-
-        for recipientUsername in users {
+        for recipientUsername in self.users {
             let query = User.query("username" == recipientUsername)
             do {
                 let recipient = try query.first()
-                let groupSession = GroupSession(recipient: recipient, inviter: inviter ?? "", message: "You've been invited to join a group by \(String(describing: inviter)).")
-                do {
-                    try groupSession.save()
-                    print("Group session saved successfully.")
-                } catch {
-                    print("Error saving group session: \(error.localizedDescription)")
+                if let unwrappedInviter = inviter {
+                    let groupSession = GroupSession(recipient: recipient, inviter: unwrappedInviter, message: "You've been invited to join a group by \(unwrappedInviter).")
+                    
+                    do {
+                        try groupSession.save()
+                        print("Group session saved successfully.")
+                    } catch {
+                        print("Error saving group session: \(error.localizedDescription)")
+                    }
                 }
             } catch {
                 print("Error fetching recipient: \(error.localizedDescription)")
             }
         }
     }
+
     func showInvitationAlert(groupSession: GroupSession) {
         let alertController = UIAlertController(title: "Invitation", message: groupSession.message, preferredStyle: .alert)
         
@@ -73,41 +78,46 @@ class MainViewController: UIViewController {
         
         present(alertController, animated: true)
     }
-
-    func fetchGroupSessions() {
-        let query = GroupSession.query("recipient" == User.current?.username)
+    func printRecipients() {
+        let query = GroupSession.query()
         query.find { result in
             switch result {
             case .success(let groupSessions):
-                // Display the group sessions in the app, e.g., in a table view
-                print("Found \(groupSessions.count) group sessions.")
                 for groupSession in groupSessions {
-                    print("Group Session: \(groupSession)")
-                    // Call showInvitationAlert() for each invitation
-                    self.showInvitationAlert(groupSession: groupSession)
+                    if let recipient = groupSession.recipient {
+                        print(recipient.objectId)
+                    } else {
+                        print("No recipient found for group session")
+                    }
                 }
             case .failure(let error):
                 print("Error fetching group sessions: \(error.localizedDescription)")
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
     
-
-
-
+    func fetchGroupSessions() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let currentUserPointer = Pointer<User>(objectId: User.current!.objectId!)
+            let query = GroupSession.query("recipient" == currentUserPointer)
+            query.limit(1).include("recipient").order(.descending("createdAt")).find { result in
+                switch result {
+                case .success(let groupSessions):
+                    // Display the group sessions in the app, e.g., in a table view
+                    print("Found \(groupSessions.count) group session.")
+                    for groupSession in groupSessions {
+                        print("Group Session: \(groupSession)")
+                        // Call showInvitationAlert() for each invitation on the main thread
+                        DispatchQueue.main.async {
+                            self.showInvitationAlert(groupSession: groupSession)
+                        }
+                    }
+                case .failure(let error):
+                    print("Error fetching group sessions: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
 
 
 
