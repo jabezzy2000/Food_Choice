@@ -506,8 +506,16 @@
                                     <action selector="onSignOutTapped:" destination="AXS-Re-R0H" eventType="touchUpInside" id="ro9-Sp-BDm"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profileImage" translatesAutoresizingMaskIntoConstraints="NO" id="D6H-JO-qZo" customClass="profileImageView">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="itachi" translatesAutoresizingMaskIntoConstraints="NO" id="D6H-JO-qZo" customClass="profileImageView">
                                 <rect key="frame" x="86" y="134" width="227" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="56Q-5j-rmU"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="64"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JT2-4H-2Sg">
                                 <rect key="frame" x="16" y="312" width="134.66666666666666" height="37"/>
@@ -575,32 +583,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tokens Left:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ri7-dl-uS2">
-                                <rect key="frame" x="16" y="132" width="93" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="16" y="132" width="89.333333333333329" height="20"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tax-U0-Y8d" customClass="tokenCountLabel">
-                                <rect key="frame" x="129" y="132" width="21" height="21"/>
+                                <rect key="frame" x="125.33333333333331" y="129.66666666666666" width="21" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YjH-CY-UT0" customClass="restaurantImage">
-                                <rect key="frame" x="16" y="222" width="361" height="215"/>
+                                <rect key="frame" x="16" y="221" width="361" height="215"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="215" id="Zk9-hF-8YN"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Howard China" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cke-6s-YqI" customClass="restaurantName">
-                                <rect key="frame" x="16" y="461" width="107" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Howard China" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cke-6s-YqI" customClass="restaurantName">
+                                <rect key="frame" x="16" y="460" width="106" height="21.666666666666686"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20 miles" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ft9-dw-jQg">
-                                <rect key="frame" x="312" y="461" width="65" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="315.66666666666669" y="461.66666666666669" width="61.333333333333314" height="20"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -665,6 +673,7 @@
                         <outlet property="restaurantDistanceLabel" destination="ft9-dw-jQg" id="KBU-dr-uf8"/>
                         <outlet property="restaurantImageView" destination="YjH-CY-UT0" id="nEZ-UN-elJ"/>
                         <outlet property="restaurantNameLabel" destination="Cke-6s-YqI" id="9fH-hJ-FGe"/>
+                        <outlet property="voteCount" destination="tax-U0-Y8d" id="JBY-Qh-nTn"/>
                         <outlet property="yesButton" destination="xPs-5d-C3q" id="Zwa-UC-Zp7"/>
                         <segue destination="5MT-f1-XHW" kind="show" id="QTx-em-3x7"/>
                     </connections>
@@ -697,8 +706,8 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="itachi" width="3464" height="1949"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
-        <image name="profileImage" width="128" height="128"/>
         <image name="xmark.circle.fill" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

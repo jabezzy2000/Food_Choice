@@ -12,6 +12,7 @@ import MapKit
 class RestaurantViewController: UIViewController, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     
+    @IBOutlet weak var voteCount: UILabel!
     @IBOutlet weak var yesButton: UIButton!
     @IBOutlet weak var noButton: UIButton!
     @IBOutlet weak var restaurantDistanceLabel: UILabel!
@@ -164,6 +165,12 @@ class RestaurantViewController: UIViewController, CLLocationManagerDelegate {
 
 
     @objc func handleButtonClick() {
+        if let currentCount = Int(voteCount.text ?? ""), currentCount > 0 {
+            voteCount.text = "\(currentCount - 1)"
+        } else {
+            // Do something when the vote count is 0 and voting ends for user
+        }
+
         updateUIWithRandomRestaurant()
     }
     
