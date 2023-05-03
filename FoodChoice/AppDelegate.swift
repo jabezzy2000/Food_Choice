@@ -7,6 +7,7 @@
 
 import UIKit
 import ParseSwift
+import GooglePlaces
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ParseSwift.initialize(applicationId: "gxFrLzgHwqrYv0YIS3Kdc4lfkLVqrNfPRqEVSC4X",
                               clientKey: "zrY19md56JhHLL7phgvXL10kEXinyP7S49IDtrDv",
                               serverURL: URL(string: "https://parseapi.back4app.com")!)
+        GMSPlacesClient.provideAPIKey("AIzaSyCMMjDU9uPL-xq33Cd57Oho3yRL9fq4kxA")
         return true
     }
 
