@@ -34,50 +34,70 @@ class RestaurantViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func fetchNearbyRestaurants(latitude: Double, longitude: Double) {
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = "restaurant"
-        request.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), latitudinalMeters: 16093 * 2, longitudinalMeters: 16093 * 2)
+        let urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(latitude),\(longitude)&radius=5000&type=restaurant&key=\(APIKey.googlePlaces)"
+        guard let url = URL(string: urlString) else { return }
         
-        let search = MKLocalSearch(request: request)
-        search.start { [self] response, error in
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
                 print("Error fetching nearby restaurants: \(error.localizedDescription)")
                 return
             }
             
-            guard let response = response else {
+            guard let data = data else {
                 print("No data received")
                 return
             }
             
-            let group = DispatchGroup()
-            
-            let restaurants = response.mapItems.compactMap { item -> Restaurant? in
-                guard let name = item.name, let location = item.placemark.location, let placeID = item.placemark.name else {
-                    return nil
+            do {
+                let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                guard let results = jsonObject?["results"] as? [[String: Any]] else {
+                    return
                 }
                 
-                let randomFood = self.fetchRandomFood()
-                var restaurant = Restaurant(name: name, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, randomFood: randomFood, imageURL: "", placeID: placeID)
-
-                group.enter()
-                fetchPhotoURL(for: placeID) { url in
-                    restaurant.imageURL = url ?? ""
-                    group.leave()
+                let restaurants = results.compactMap { result -> Restaurant? in
+                    guard let name = result["name"] as? String,
+                          let geometry = result["geometry"] as? [String: Any],
+                          let location = geometry["location"] as? [String: Any],
+                          let latitude = location["lat"] as? Double,
+                          let longitude = location["lng"] as? Double,
+                          let photos = result["photos"] as? [[String: Any]],
+                          let photo = photos.first,
+                          let photoReference = photo["photo_reference"] as? String else {
+                        return nil
+                    }
+                    
+                    let placeID = result["place_id"] as? String ?? ""
+                    let randomFood = self.fetchRandomFood()
+                    let photoURLString = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=\(photoReference)&key=\(APIKey.googlePlaces)"
+                    return Restaurant(name: name, latitude: latitude, longitude: longitude, randomFood: randomFood, imageURL: photoURLString, placeID: placeID)
                 }
-
-                return restaurant
-            }
-            
-            group.notify(queue: .main) {
-                let limitedRestaurants = Array(restaurants.prefix(20))
                 
-                print("Nearby restaurants (limited to 20): \(limitedRestaurants)")
-                // Do something with the 'limitedRestaurants' array
-                self.startSwipe(with: limitedRestaurants)
-            }
-        }
-    }
+                DispatchQueue.main.async {
+                    if let userLocation = self.locationManager.location {
+                        let sortedRestaurants = restaurants.sorted {
+                            let location1 = CLLocation(latitude: $0.latitude, longitude: $0.longitude)
+                            let location2 = CLLocation(latitude: $1.latitude, longitude: $1.longitude)
+                            let distance1 = userLocation.distance(from: location1)
+                            let distance2 = userLocation.distance(from: location2)
+                            return distance1 < distance2
+                        }
+                        
+                        let limitedRestaurants = Array(sortedRestaurants.prefix(20))
+                        
+                        print("Nearby restaurants (sorted by distance and limited to 20): \(limitedRestaurants)")
+                        // Do something with the 'limitedRestaurants' array
+                
+                                        self.startSwipe(with: limitedRestaurants)
+                                    }
+                                }
+                            } catch {
+                                print("Error parsing JSON: \(error.localizedDescription)")
+                            }
+                        }.resume()
+                    }
+
+
+
 
 
 //    ends here
@@ -130,19 +150,18 @@ class RestaurantViewController: UIViewController, CLLocationManagerDelegate {
             }
             
             // Load the restaurant image from the URL asynchronously
-            // Note: You need to add an imageURL property to your Restaurant model
-            // and update the fetchNearbyRestaurants function to set the imageURL value
-            if let imageURL = URL(string: randomRestaurant.imageURL) {
-                DispatchQueue.global().async {
-                    if let imageData = try? Data(contentsOf: imageURL) {
-                        DispatchQueue.main.async {
-                            self.restaurantImageView.image = UIImage(data: imageData)
-                        }
+            let imageURL = URL(string: randomRestaurant.imageURL)
+            DispatchQueue.global().async {
+                if let url = imageURL,
+                   let imageData = try? Data(contentsOf: url) {
+                    DispatchQueue.main.async {
+                        self.restaurantImageView.image = UIImage(data: imageData)
                     }
                 }
             }
         }
     }
+
 
     @objc func handleButtonClick() {
         updateUIWithRandomRestaurant()
@@ -163,12 +182,20 @@ class RestaurantViewController: UIViewController, CLLocationManagerDelegate {
             }
             
             guard let data = data else {
+                print("No data received")
                 completion(nil)
                 return
             }
             
             do {
                 let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                if let status = jsonObject?["status"] as? String, status != "OK" {
+                    print("Google Places API error: \(status)")
+                    if let errorMessage = jsonObject?["error_message"] as? String {
+                        print("Error message: \(errorMessage)")
+                    }
+                }
+                
                 guard let result = jsonObject?["result"] as? [String: Any],
                       let photos = result["photos"] as? [[String: Any]],
                       let photo = photos.first,
@@ -185,8 +212,9 @@ class RestaurantViewController: UIViewController, CLLocationManagerDelegate {
                 completion(nil)
             }
         }
-        
+
         task.resume()
+
     }
 
     

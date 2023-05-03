@@ -213,12 +213,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Invite User:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o4F-lP-RLC">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Invite User:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o4F-lP-RLC">
                                 <rect key="frame" x="16" y="241" width="341" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite By Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Nn-a7-17R">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Invite By Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Nn-a7-17R">
                                 <rect key="frame" x="16" y="196" width="148" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="itz-t9-bJY"/>
@@ -228,7 +228,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fws-10-9gf" customClass="StartSessionButton">
-                                <rect key="frame" x="16" y="654" width="125" height="35"/>
+                                <rect key="frame" x="16" y="604" width="125" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Start Session"/>
                                 <connections>
@@ -237,7 +237,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryb-Oa-mYf">
-                                <rect key="frame" x="313.33333333333331" y="103" width="68.666666666666686" height="70"/>
+                                <rect key="frame" x="313.33333333333331" y="53" width="68.666666666666686" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="PRl-qV-j0S"/>
                                 </constraints>
@@ -248,7 +248,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ujm-Tm-L1P">
-                                <rect key="frame" x="243" y="319" width="123" height="35"/>
+                                <rect key="frame" x="243" y="269" width="123" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Add member"/>
                                 <connections>
@@ -588,15 +588,12 @@
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YjH-CY-UT0" customClass="restaurantImage">
                                 <rect key="frame" x="16" y="222" width="361" height="215"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="215" id="Zk9-hF-8YN"/>
+                                </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Howard China" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cke-6s-YqI" customClass="restaurantName">
                                 <rect key="frame" x="16" y="461" width="107" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spicy Fried Rice" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vMV-Qm-96q" customClass="restaurantFood">
-                                <rect key="frame" x="16" y="490" width="122" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -609,11 +606,19 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wvi-Dg-fZv" customClass="noButton">
                                 <rect key="frame" x="16" y="588" width="50" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="6Ro-kK-HZ9"/>
+                                    <constraint firstAttribute="height" constant="35" id="dhR-px-e0S"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" image="xmark.circle.fill" catalog="system" title=""/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xPs-5d-C3q" customClass="yesButton">
                                 <rect key="frame" x="327" y="588" width="50" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="MTe-Fj-unD"/>
+                                    <constraint firstAttribute="height" constant="35" id="SOA-kV-NAO"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" image="checkmark.circle.fill" catalog="system" title=""/>
                             </button>
@@ -632,30 +637,25 @@
                         <viewLayoutGuide key="safeArea" id="APe-CC-377"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="vMV-Qm-96q" firstAttribute="leading" secondItem="wvi-Dg-fZv" secondAttribute="leading" id="3sv-YD-j11"/>
+                            <constraint firstItem="xPs-5d-C3q" firstAttribute="trailing" secondItem="ft9-dw-jQg" secondAttribute="trailing" id="A02-Vg-Oy4"/>
                             <constraint firstItem="YjH-CY-UT0" firstAttribute="top" secondItem="Ri7-dl-uS2" secondAttribute="bottom" constant="69" id="A1R-Uy-QwG"/>
-                            <constraint firstItem="wvi-Dg-fZv" firstAttribute="baseline" secondItem="xPs-5d-C3q" secondAttribute="baseline" id="EKN-Rd-u3g"/>
                             <constraint firstItem="ft9-dw-jQg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Cke-6s-YqI" secondAttribute="trailing" constant="8" symbolic="YES" id="GE8-Cj-u5e"/>
                             <constraint firstItem="Ri7-dl-uS2" firstAttribute="leading" secondItem="zNu-kF-ZKo" secondAttribute="leadingMargin" id="H8m-3i-RcO"/>
+                            <constraint firstItem="APe-CC-377" firstAttribute="bottom" secondItem="wvi-Dg-fZv" secondAttribute="bottom" constant="146" id="Hgh-YE-KPY"/>
                             <constraint firstItem="tax-U0-Y8d" firstAttribute="leading" secondItem="Ri7-dl-uS2" secondAttribute="trailing" constant="20" id="ILW-Ei-MPW"/>
                             <constraint firstItem="YjH-CY-UT0" firstAttribute="leading" secondItem="Cke-6s-YqI" secondAttribute="leading" id="Lko-sr-row"/>
-                            <constraint firstItem="ft9-dw-jQg" firstAttribute="trailing" secondItem="xPs-5d-C3q" secondAttribute="trailing" id="Mse-2O-yhY"/>
-                            <constraint firstItem="wvi-Dg-fZv" firstAttribute="top" secondItem="vMV-Qm-96q" secondAttribute="bottom" constant="77" id="OkK-Cu-Vxq"/>
                             <constraint firstItem="Ri7-dl-uS2" firstAttribute="baseline" secondItem="tax-U0-Y8d" secondAttribute="baseline" id="UI8-S9-Tor"/>
                             <constraint firstItem="Ri7-dl-uS2" firstAttribute="top" secondItem="APe-CC-377" secondAttribute="top" constant="29" id="VT7-QK-qyw"/>
                             <constraint firstItem="YjH-CY-UT0" firstAttribute="trailing" secondItem="ft9-dw-jQg" secondAttribute="trailing" id="WVq-4r-St9"/>
-                            <constraint firstItem="xPs-5d-C3q" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="wvi-Dg-fZv" secondAttribute="trailing" constant="8" symbolic="YES" id="aC1-Ki-ef3"/>
                             <constraint firstItem="APe-CC-377" firstAttribute="trailing" secondItem="4P7-dj-yO2" secondAttribute="trailing" constant="16.333333333333371" id="c1w-qA-bKq"/>
                             <constraint firstItem="YjH-CY-UT0" firstAttribute="trailing" secondItem="zNu-kF-ZKo" secondAttribute="trailingMargin" id="drt-zs-QvT"/>
                             <constraint firstItem="Cke-6s-YqI" firstAttribute="baseline" secondItem="ft9-dw-jQg" secondAttribute="baseline" id="eAZ-GU-T6J"/>
-                            <constraint firstItem="vMV-Qm-96q" firstAttribute="top" secondItem="Cke-6s-YqI" secondAttribute="bottom" constant="8" symbolic="YES" id="fIc-HQ-ilT"/>
-                            <constraint firstItem="APe-CC-377" firstAttribute="bottom" secondItem="wvi-Dg-fZv" secondAttribute="bottom" constant="146" id="fsy-dh-doy"/>
+                            <constraint firstItem="Cke-6s-YqI" firstAttribute="leading" secondItem="wvi-Dg-fZv" secondAttribute="leading" id="jEw-ra-MRG"/>
                             <constraint firstItem="APe-CC-377" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tax-U0-Y8d" secondAttribute="trailing" symbolic="YES" id="kMS-zn-uCq"/>
                             <constraint firstItem="4P7-dj-yO2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tax-U0-Y8d" secondAttribute="trailing" constant="8" symbolic="YES" id="lhd-s9-9Dz"/>
-                            <constraint firstItem="Cke-6s-YqI" firstAttribute="leading" secondItem="vMV-Qm-96q" secondAttribute="leading" id="n39-xk-dgz"/>
                             <constraint firstItem="Cke-6s-YqI" firstAttribute="top" secondItem="YjH-CY-UT0" secondAttribute="bottom" constant="24" id="o2m-3g-Yf7"/>
-                            <constraint firstItem="APe-CC-377" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vMV-Qm-96q" secondAttribute="trailing" symbolic="YES" id="szI-QJ-xd8"/>
                             <constraint firstItem="Ri7-dl-uS2" firstAttribute="leading" secondItem="YjH-CY-UT0" secondAttribute="leading" id="tOZ-YA-9eg"/>
+                            <constraint firstItem="wvi-Dg-fZv" firstAttribute="baseline" secondItem="xPs-5d-C3q" secondAttribute="baseline" id="vet-p6-BRk"/>
                             <constraint firstItem="4P7-dj-yO2" firstAttribute="top" secondItem="APe-CC-377" secondAttribute="top" constant="-20" id="wzf-c4-C5p"/>
                         </constraints>
                     </view>
