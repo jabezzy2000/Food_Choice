@@ -661,6 +661,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="uyP-rd-7Wa"/>
                     <connections>
+                        <outlet property="noButton" destination="wvi-Dg-fZv" id="89F-UF-NGZ"/>
+                        <outlet property="restaurantDistanceLabel" destination="ft9-dw-jQg" id="KBU-dr-uf8"/>
+                        <outlet property="restaurantImageView" destination="YjH-CY-UT0" id="nEZ-UN-elJ"/>
+                        <outlet property="restaurantNameLabel" destination="Cke-6s-YqI" id="9fH-hJ-FGe"/>
+                        <outlet property="yesButton" destination="xPs-5d-C3q" id="Zwa-UC-Zp7"/>
                         <segue destination="5MT-f1-XHW" kind="show" id="QTx-em-3x7"/>
                     </connections>
                 </viewController>
@@ -688,7 +693,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="BSx-4w-5fp"/>
+        <segue reference="1sc-Kf-CjP"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="123"/>
