@@ -15,6 +15,7 @@ struct GroupSession: ParseObject, Codable {
         message = ""
         isRead = false
     }
+    //Some comments just to make the file committable
 
     static var parseClassName: String {
             return "GroupSession"
