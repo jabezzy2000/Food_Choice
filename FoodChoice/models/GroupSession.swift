@@ -4,7 +4,6 @@
 //
 //  Created by Donald Echefu on 4/30/23.
 //
-
 import Foundation
 import ParseSwift
 
@@ -15,7 +14,6 @@ struct GroupSession: ParseObject, Codable {
         message = ""
         isRead = false
     }
-    //Some comments just to make the file committable
 
     static var parseClassName: String {
             return "GroupSession"
