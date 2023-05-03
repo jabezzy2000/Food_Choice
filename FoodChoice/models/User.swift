@@ -9,6 +9,7 @@ struct User: ParseUser {
     var updatedAt: Date?
     var ACL: ParseACL?
     var originalData: Data?
+    
 
     // These are required by `ParseUser`.
     var username: String?

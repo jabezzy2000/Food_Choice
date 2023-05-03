@@ -13,14 +13,18 @@
 		02528E4929E89BAD0058878D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02528E4729E89BAD0058878D /* Main.storyboard */; };
 		02528E4B29E89BAF0058878D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02528E4A29E89BAF0058878D /* Assets.xcassets */; };
 		02528E4E29E89BAF0058878D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02528E4C29E89BAF0058878D /* LaunchScreen.storyboard */; };
+		0258FE0D2A01DF5A0058D6C2 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0258FE0C2A01DF5A0058D6C2 /* Restaurant.swift */; };
+		0258FE0F2A01E1E50058D6C2 /* RestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0258FE0E2A01E1E50058D6C2 /* RestaurantViewController.swift */; };
 		02DCAF0829F699AA001ED6C0 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02DCAF0729F699AA001ED6C0 /* UserViewController.swift */; };
 		70C76AEC29F1B17E00AAF720 /* ParseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 70C76AEB29F1B17E00AAF720 /* ParseSwift */; };
 		70C76AEF29F1BF5D00AAF720 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C76AEE29F1BF5D00AAF720 /* User.swift */; };
 		70C76AF129F1C20900AAF720 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C76AF029F1C20900AAF720 /* SignUpViewController.swift */; };
 		70C76AF329F4D00300AAF720 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C76AF229F4D00300AAF720 /* MainViewController.swift */; };
+		7769427A77655509373EEAB7 /* Pods_FoodChoice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E9B43A5CDD83D8C7328A728 /* Pods_FoodChoice.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		005DE245717E407455E32989 /* Pods-FoodChoice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodChoice.release.xcconfig"; path = "Target Support Files/Pods-FoodChoice/Pods-FoodChoice.release.xcconfig"; sourceTree = "<group>"; };
 		02528E3E29E89BAD0058878D /* FoodChoice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodChoice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02528E4129E89BAD0058878D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02528E4329E89BAD0058878D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -29,10 +33,14 @@
 		02528E4A29E89BAF0058878D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		02528E4D29E89BAF0058878D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		02528E4F29E89BAF0058878D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0258FE0C2A01DF5A0058D6C2 /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
+		0258FE0E2A01E1E50058D6C2 /* RestaurantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewController.swift; sourceTree = "<group>"; };
 		02DCAF0729F699AA001ED6C0 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		1E9B43A5CDD83D8C7328A728 /* Pods_FoodChoice.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoodChoice.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		70C76AEE29F1BF5D00AAF720 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		70C76AF029F1C20900AAF720 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		70C76AF229F4D00300AAF720 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		906F8E8A02701C1AB33D3D7A /* Pods-FoodChoice.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodChoice.debug.xcconfig"; path = "Target Support Files/Pods-FoodChoice/Pods-FoodChoice.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +49,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				70C76AEC29F1B17E00AAF720 /* ParseSwift in Frameworks */,
+				7769427A77655509373EEAB7 /* Pods_FoodChoice.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +61,8 @@
 			children = (
 				02528E4029E89BAD0058878D /* FoodChoice */,
 				02528E3F29E89BAD0058878D /* Products */,
+				9424E0D302597B783EA16EBC /* Pods */,
+				2E7F1C367F532678F1D5F370 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,14 +87,24 @@
 				02528E4C29E89BAF0058878D /* LaunchScreen.storyboard */,
 				02528E4F29E89BAF0058878D /* Info.plist */,
 				02DCAF0729F699AA001ED6C0 /* UserViewController.swift */,
+				0258FE0E2A01E1E50058D6C2 /* RestaurantViewController.swift */,
 			);
 			path = FoodChoice;
+			sourceTree = "<group>";
+		};
+		2E7F1C367F532678F1D5F370 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1E9B43A5CDD83D8C7328A728 /* Pods_FoodChoice.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		70C76AED29F1BD9200AAF720 /* models */ = {
 			isa = PBXGroup;
 			children = (
 				70C76AEE29F1BF5D00AAF720 /* User.swift */,
+				0258FE0C2A01DF5A0058D6C2 /* Restaurant.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -97,6 +118,15 @@
 			path = UserAuthentication;
 			sourceTree = "<group>";
 		};
+		9424E0D302597B783EA16EBC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				906F8E8A02701C1AB33D3D7A /* Pods-FoodChoice.debug.xcconfig */,
+				005DE245717E407455E32989 /* Pods-FoodChoice.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -104,9 +134,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 02528E5229E89BAF0058878D /* Build configuration list for PBXNativeTarget "FoodChoice" */;
 			buildPhases = (
+				06B332527F9269BCBBB5127E /* [CP] Check Pods Manifest.lock */,
 				02528E3A29E89BAD0058878D /* Sources */,
 				02528E3B29E89BAD0058878D /* Frameworks */,
 				02528E3C29E89BAD0058878D /* Resources */,
+				C89E9259265EBF71754A8A54 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -169,6 +201,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		06B332527F9269BCBBB5127E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FoodChoice-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C89E9259265EBF71754A8A54 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FoodChoice/Pods-FoodChoice-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FoodChoice/Pods-FoodChoice-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FoodChoice/Pods-FoodChoice-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		02528E3A29E89BAD0058878D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -178,6 +252,8 @@
 				70C76AEF29F1BF5D00AAF720 /* User.swift in Sources */,
 				02528E4629E89BAD0058878D /* LoginViewController.swift in Sources */,
 				02528E4229E89BAD0058878D /* AppDelegate.swift in Sources */,
+				0258FE0F2A01E1E50058D6C2 /* RestaurantViewController.swift in Sources */,
+				0258FE0D2A01DF5A0058D6C2 /* Restaurant.swift in Sources */,
 				70C76AF329F4D00300AAF720 /* MainViewController.swift in Sources */,
 				02528E4429E89BAD0058878D /* SceneDelegate.swift in Sources */,
 				70C76AF129F1C20900AAF720 /* SignUpViewController.swift in Sources */,
@@ -322,6 +398,7 @@
 		};
 		02528E5329E89BAF0058878D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 906F8E8A02701C1AB33D3D7A /* Pods-FoodChoice.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -350,6 +427,7 @@
 		};
 		02528E5429E89BAF0058878D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 005DE245717E407455E32989 /* Pods-FoodChoice.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
