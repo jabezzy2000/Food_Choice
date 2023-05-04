@@ -59,19 +59,19 @@ class ResultViewController: UIViewController {
                         }
 
                         if restaurants.count >= 2 {
-                            self.name2.text = restaurants[1].name
-                            if let imageURL = URL(string: restaurants[1].imageURL!),
-                               let imageData = try? Data(contentsOf: imageURL) {
-                                self.image2.image = UIImage(data: imageData)
-                            }
+//                            self.name2.text = restaurants[1].name
+//                            if let imageURL = URL(string: restaurants[1].imageURL!),
+//                               let imageData = try? Data(contentsOf: imageURL) {
+//                                self.image2.image = UIImage(data: imageData)
+//                            }
                         }
 
                         if restaurants.count >= 3 {
-                            self.name3.text = restaurants[2].name
-                            if let imageURL = URL(string: restaurants[2].imageURL!),
-                               let imageData = try? Data(contentsOf: imageURL) {
-                                self.image3.image = UIImage(data: imageData)
-                            }
+//                            self.name3.text = restaurants[2].name
+//                            if let imageURL = URL(string: restaurants[2].imageURL!),
+//                               let imageData = try? Data(contentsOf: imageURL) {
+//                                self.image3.image = UIImage(data: imageData)
+//                            }
                         }
                     case .failure(let error):
                         print("Error fetching restaurants: \(error.localizedDescription)")
