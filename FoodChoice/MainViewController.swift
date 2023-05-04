@@ -64,6 +64,10 @@ class MainViewController: UIViewController {
         
         let acceptAction = UIAlertAction(title: "Accept", style: .default) { _ in
             // Handle the acceptance of the invitation and update the groupSession object accordingly
+            // Perform the segue to RestaurantViewController
+            DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: "ShowRestaurantViewController", sender: self)
+                }
         }
         
         let declineAction = UIAlertAction(title: "Decline", style: .destructive) { _ in
@@ -126,6 +130,14 @@ class MainViewController: UIViewController {
         let action = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(action)
         present(alertController, animated: true)
+    }
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowRestaurantViewController" {
+            //Pass information needed in RestaurantViewController
+        }
     }
     /*
     // MARK: - Navigation
