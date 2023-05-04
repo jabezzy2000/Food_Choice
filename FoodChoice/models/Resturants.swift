@@ -27,8 +27,9 @@ struct ParseRestaurant: ParseObject {
     var randomFood: String?
     var placeID: String?
     var voteCount: Int?
+    var directionsURL: String?
     
-    init(name: String, latitude: Double, longitude: Double, imageURL: String, randomFood: String? = nil, placeID: String? = nil, voteCount: Int? = nil) {
+    init(name: String, latitude: Double, longitude: Double, imageURL: String, randomFood: String? = nil, placeID: String? = nil, voteCount: Int? = nil, directionsURL: String? = nil) {
         self.name = name
         self.latitude = latitude
         self.longitude = longitude
@@ -36,6 +37,7 @@ struct ParseRestaurant: ParseObject {
         self.randomFood = randomFood
         self.placeID = placeID
         self.voteCount = voteCount
+        self.directionsURL = directionsURL
     }
     
     init() {
@@ -46,6 +48,7 @@ struct ParseRestaurant: ParseObject {
         self.randomFood = ""
         self.placeID = ""
         self.voteCount = 0
+        self.directionsURL = ""
     }
     
     func toRestaurant() -> Restaurant {
@@ -54,7 +57,8 @@ struct ParseRestaurant: ParseObject {
                           longitude: longitude,
                           randomFood: randomFood ?? "",
                           imageURL: imageURL ?? "",
-                          placeID: placeID ?? "")
+                          placeID: placeID ?? "",
+                          directionsURL: directionsURL ?? "")
     }
 }
 

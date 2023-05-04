@@ -72,7 +72,8 @@ class RestaurantViewController: UIViewController, CLLocationManagerDelegate {
                     let placeID = result["place_id"] as? String ?? ""
                     let randomFood = self.fetchRandomFood()
                     let photoURLString = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=\(photoReference)&key=\(APIKey.googlePlaces)"
-                    return Restaurant(name: name, latitude: latitude, longitude: longitude, randomFood: randomFood, imageURL: photoURLString, placeID: placeID)
+                    let directionsURL = "https://www.google.com/maps/dir/?api=1&destination=\(latitude),\(longitude)"
+                    return Restaurant(name: name, latitude: latitude, longitude: longitude, randomFood: randomFood, imageURL: photoURLString, placeID: placeID, directionsURL: directionsURL)
                 }
                 
                 DispatchQueue.main.async {
@@ -196,7 +197,7 @@ class RestaurantViewController: UIViewController, CLLocationManagerDelegate {
 
 
     @objc func handleButtonClick(_ sender: UIButton) {
-        if Int((voteCount.text ?? ""))! > 0 {
+        if Int((voteCount.text ?? ""))! > 1 {
             voteCount.text = String(Int(voteCount.text ?? "")! - 1)
         } else {
             // Do something when the vote count is 0 and voting ends for the user
