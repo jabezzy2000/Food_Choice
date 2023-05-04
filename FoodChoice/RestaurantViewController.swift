@@ -200,9 +200,31 @@ class RestaurantViewController: UIViewController, CLLocationManagerDelegate {
             voteCount.text = String(Int(voteCount.text ?? "")! - 1)
         } else {
             // Do something when the vote count is 0 and voting ends for the user
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let resultVC = storyboard.instantiateViewController(withIdentifier: "ResultViewController") as! ResultViewController
-                    self.navigationController?.pushViewController(resultVC, animated: true)
+
+            // Query the GroupSession class to see if all users have finished voting
+            let query = GroupSession.query("recipient" == User.current?.objectId)
+            query.limit(1000) 
+            .find { result in
+                switch result {
+                case .success(let groupSessions):
+                    // Check if all group sessions have finished voting
+                    let allFinishedVoting = groupSessions.allSatisfy { $0.track == $0.numPeep }
+                    if allFinishedVoting {
+                        // Navigate to the results screen
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let resultVC = storyboard.instantiateViewController(withIdentifier: "ResultViewController") as! ResultViewController
+                        self.navigationController?.pushViewController(resultVC, animated: true)
+                    } else {
+                        // Show an alert indicating the remaining number of users that need to finish voting
+                        let remainingUsersCount = groupSessions.filter { $0.track < $0.numPeep }.count
+                        let message = "Waiting for \(remainingUsersCount) more users to finish swiping"
+                        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                case .failure(let error):
+                    print("Error fetching GroupSessions: \(error.localizedDescription)")
+                }
+            }
         }
         
         guard let currentRestaurantName = restaurantNameLabel.text,
@@ -245,23 +267,23 @@ class RestaurantViewController: UIViewController, CLLocationManagerDelegate {
                 newRestaurant.imageURL = currentRestaurant.imageURL
                 newRestaurant.voteCount = 1
                 newRestaurant.placeID = currentRestaurant.placeID
-                
                 newRestaurant.save { result in
-                    switch result {
-                    case .success:
-                        print("Restaurant saved successfully")
-                        if let index = RestaurantViewController.limitedRestaurants.firstIndex(where: { $0.placeID == currentRestaurant.placeID }) {
-                            RestaurantViewController.limitedRestaurants.remove(at: index)
+                                    switch result {
+                                    case .success:
+                                        print("Restaurant saved successfully")
+                                        if let index = RestaurantViewController.limitedRestaurants.firstIndex(where: { $0.placeID == currentRestaurant.placeID }) {
+                                            RestaurantViewController.limitedRestaurants.remove(at: index)
+                                        }
+                                        
+                                        self.updateUIWithRandomRestaurant()
+                                    case .failure(let error):
+                                        print("Error saving restaurant: \(error.localizedDescription)")
+                                    }
+                                }
+                            }
                         }
-                        
-                        self.updateUIWithRandomRestaurant()
-                    case .failure(let error):
-                        print("Error saving restaurant: \(error.localizedDescription)")
                     }
-                }
-            }
-        }
-    }
+
 
 
 

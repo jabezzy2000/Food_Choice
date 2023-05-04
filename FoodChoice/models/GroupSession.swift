@@ -13,16 +13,20 @@ struct GroupSession: ParseObject, Codable {
         inviter = ""
         message = ""
         isRead = false
+        numPeep = 0
+        track = 0
     }
 
     static var parseClassName: String {
             return "GroupSession"
         }
-    init(recipient: User, inviter: String, message: String) {
+    init(recipient: User, inviter: String, message: String, num: Int, track: Int) {
         self.recipient = try? Pointer(recipient)
         self.inviter = inviter
         self.message = message
         self.isRead = false
+        self.numPeep = num
+        self.track = track
     }
     
     var originalData: Data?
@@ -35,6 +39,8 @@ struct GroupSession: ParseObject, Codable {
     var inviter: String
     var message: String
     var isRead: Bool
+    var numPeep: Int
+    var track: Int
 
     enum CodingKeys: String, CodingKey {
         case objectId
@@ -45,5 +51,7 @@ struct GroupSession: ParseObject, Codable {
         case inviter
         case message
         case isRead
+        case numPeep
+        case track
     }
 }

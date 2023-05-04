@@ -19,11 +19,11 @@ class UserViewController: UIViewController {
     @IBAction func onSignOutTapped(_ sender: UIButton) {
         User.logout { [weak self] result in
                 guard let self = self else { return }
-                showConfirmLogoutAlert()
+            self.showConfirmLogoutAlert()
                 switch result {
                 case .success:
                     // Call the delegate method to notify the SceneDelegate that the user has logged out.
-                    delegate?.didLogout()
+                    self.delegate?.didLogout()
                     
                 case .failure(let error):
                     print("❌ Log out error: \(error)")

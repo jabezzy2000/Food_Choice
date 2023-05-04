@@ -44,13 +44,18 @@ class MainViewController: UIViewController {
             do {
                 let recipient = try query.first()
                 if let unwrappedInviter = inviter {
-                    let groupSession = GroupSession(recipient: recipient, inviter: unwrappedInviter, message: "You've been invited to join a group by \(unwrappedInviter).")
-                    
-                    do {
-                        try groupSession.save()
-                        print("Group session saved successfully.")
-                    } catch {
-                        print("Error saving group session: \(error.localizedDescription)")
+                    if let groupSize = Int(GroupSize.text ?? "") {
+                        let groupSession = GroupSession(recipient: recipient, inviter: unwrappedInviter, message: "You've been invited to join a group by \(unwrappedInviter).", num: groupSize, track: 0)
+                        
+                        
+                        
+                        do {
+                            try groupSession.save()
+                            print("Group session saved successfully.")
+                        } catch {
+                            print("Error saving group session: \(error.localizedDescription)")
+                        }
+                        
                     }
                 }
             } catch {
