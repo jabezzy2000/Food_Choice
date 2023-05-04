@@ -24,7 +24,11 @@ class ResultViewController: UIViewController {
 
      
     @IBAction func endSession(_ sender: UIButton) {
+        let dispatchGroup = DispatchGroup()
+        
+        // Delete all restaurants
         let query = ParseRestaurant.query()
+        dispatchGroup.enter()
         query.find { result in
             switch result {
             case .success(let restaurants):
@@ -41,9 +45,37 @@ class ResultViewController: UIViewController {
             case .failure(let error):
                 print("Error fetching restaurants: \(error.localizedDescription)")
             }
+            dispatchGroup.leave()
         }
-
+        
+        // Delete all group sessions
+        let query1 = GroupSession.query()
+        dispatchGroup.enter()
+        query1.find { result in
+            switch result {
+            case .success(let groupSessions):
+                for groupSession in groupSessions {
+                    groupSession.delete { result in
+                        switch result {
+                        case .success:
+                            print("GroupSession deleted successfully")
+                        case .failure(let error):
+                            print("Error deleting GroupSession: \(error.localizedDescription)")
+                        }
+                    }
+                }
+            case .failure(let error):
+                print("Error fetching GroupSessions: \(error.localizedDescription)")
+            }
+            dispatchGroup.leave()
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            // All deletions are complete, perform segue to next screen
+            self.performSegue(withIdentifier: "NextScreenSegue", sender: self)
+        }
     }
+
     
     @IBAction func mapsButtonTapped(_ sender: UIButton) {
         if let latitude = firstRestaurantLatitude, let longitude = firstRestaurantLongitude {
