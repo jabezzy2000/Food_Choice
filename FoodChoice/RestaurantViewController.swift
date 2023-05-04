@@ -8,6 +8,7 @@
 import UIKit
 import CoreLocation
 import MapKit
+import ParseSwift
 
 class RestaurantViewController: UIViewController, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
@@ -19,13 +20,14 @@ class RestaurantViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var restaurantNameLabel: UILabel!
     @IBOutlet weak var restaurantImageView: UIImageView!
     
-    var limitedRestaurants: [Restaurant] = []
-    
+   static var limitedRestaurants: [Restaurant] = []
+    var votedRestaurants: [Restaurant: Int] = [:]
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         yesButton.addTarget(self, action: #selector(handleButtonClick), for: .touchUpInside)
         noButton.addTarget(self, action: #selector(handleButtonClick), for: .touchUpInside)
-        
         requestUserLocation()
     }
     
@@ -83,9 +85,9 @@ class RestaurantViewController: UIViewController, CLLocationManagerDelegate {
                             return distance1 < distance2
                         }
                         
-                        let limitedRestaurants = Array(sortedRestaurants.prefix(20))
+                        let limitedRestaurants = Array(sortedRestaurants.prefix(5))
                         
-                        print("Nearby restaurants (sorted by distance and limited to 20): \(limitedRestaurants)")
+                        print("Nearby restaurants (sorted by distance and limited to 5): \(limitedRestaurants)")
                         // Do something with the 'limitedRestaurants' array
                 
                                         self.startSwipe(with: limitedRestaurants)
@@ -97,11 +99,44 @@ class RestaurantViewController: UIViewController, CLLocationManagerDelegate {
                         }.resume()
                     }
 
-
-
-
-
 //    ends here
+    func startSwipe(with limitedRestaurants: [Restaurant]) {
+        // Create an array to store the limited restaurants with vote count
+        var limitedRestaurantsWithVoteCount: [ParseRestaurant] = []
+        
+        // Loop through each restaurant and create a new ParseRestaurant object with the voteCount field set to 0
+        for restaurant in limitedRestaurants {
+            var newRestaurant = ParseRestaurant()
+            newRestaurant.name = restaurant.name
+            newRestaurant.latitude = restaurant.latitude
+            newRestaurant.longitude = restaurant.longitude
+            newRestaurant.imageURL = restaurant.imageURL
+            newRestaurant.voteCount = 0
+            newRestaurant.placeID = restaurant.placeID
+            limitedRestaurantsWithVoteCount.append(newRestaurant)
+        }
+        
+        // Save each new ParseRestaurant object to the Back4App server using the save method
+        for restaurant in limitedRestaurantsWithVoteCount {
+            restaurant.save { result in
+                switch result {
+                case .success:
+                    print("Restaurant saved successfully")
+                case .failure(let error):
+                    print("Error saving restaurant: \(error.localizedDescription)")
+                }
+            }
+        }
+        
+        // Populate the RestaurantViewController.limitedRestaurants array with the original Restaurant objects
+        RestaurantViewController.limitedRestaurants = limitedRestaurants
+        
+        // Update the UI with a random restaurant
+        updateUIWithRandomRestaurant()
+    }
+
+
+
     
     func requestUserLocation() {
         locationManager.delegate = self
@@ -131,15 +166,10 @@ class RestaurantViewController: UIViewController, CLLocationManagerDelegate {
         print("Failed to get user's location: \(error.localizedDescription)")
     }
     
-    func startSwipe(with restaurants: [Restaurant]) {
-        limitedRestaurants = restaurants
-        updateUIWithRandomRestaurant()
-    }
+  
     
     func updateUIWithRandomRestaurant() {
-        if let randomRestaurant = limitedRestaurants.randomElement(),
-           let index = limitedRestaurants.firstIndex(where: { $0.name == randomRestaurant.name }) {
-            limitedRestaurants.remove(at: index)
+        if let randomRestaurant = RestaurantViewController.limitedRestaurants.randomElement() {
             restaurantNameLabel.text = randomRestaurant.name
             
             // Calculate the distance between the user's location and the restaurant
@@ -164,16 +194,79 @@ class RestaurantViewController: UIViewController, CLLocationManagerDelegate {
     }
 
 
-    @objc func handleButtonClick() {
-        if let currentCount = Int(voteCount.text ?? ""), currentCount > 0 {
-            voteCount.text = "\(currentCount - 1)"
-        } else {
-            // Do something when the vote count is 0 and voting ends for user
-        }
 
-        updateUIWithRandomRestaurant()
+    @objc func handleButtonClick(_ sender: UIButton) {
+        if Int((voteCount.text ?? ""))! > 0 {
+            voteCount.text = String(Int(voteCount.text ?? "")! - 1)
+        } else {
+            // Do something when the vote count is 0 and voting ends for the user
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let resultVC = storyboard.instantiateViewController(withIdentifier: "ResultViewController") as! ResultViewController
+                    self.navigationController?.pushViewController(resultVC, animated: true)
+        }
+        
+        guard let currentRestaurantName = restaurantNameLabel.text,
+              let currentRestaurant = RestaurantViewController.limitedRestaurants.first(where: { $0.name == currentRestaurantName })
+               else { return }
+        
+        let query = ParseRestaurant.query("name" == currentRestaurant.name)
+        query.first { result in
+            switch result {
+            case .success(var parseObject):
+                if sender == self.yesButton {
+                    if let currentVotes = parseObject.voteCount {
+                        parseObject.voteCount = currentVotes + 1
+                    } else {
+                        parseObject.voteCount = 1
+                    }
+
+                    // Save the updated vote count to the ParseRestaurant class in Back4App
+                    do {
+                        try parseObject.save()
+                        print("Restaurant saved successfully")
+                    } catch {
+                        print("Error saving restaurant: \(error.localizedDescription)")
+                    }
+                }
+
+                if let index = RestaurantViewController.limitedRestaurants.firstIndex(where: { $0.placeID == currentRestaurant.placeID }) {
+                    RestaurantViewController.limitedRestaurants.remove(at: index)
+                }
+                
+                self.updateUIWithRandomRestaurant()
+            case .failure(let error):
+                print("Error fetching restaurant: \(error.localizedDescription)")
+                
+                // The restaurant was not found, so we need to create a new ParseRestaurant object
+                var newRestaurant = ParseRestaurant()
+                newRestaurant.name = currentRestaurant.name
+                newRestaurant.latitude = currentRestaurant.latitude
+                newRestaurant.longitude = currentRestaurant.longitude
+                newRestaurant.imageURL = currentRestaurant.imageURL
+                newRestaurant.voteCount = 1
+                newRestaurant.placeID = currentRestaurant.placeID
+                
+                newRestaurant.save { result in
+                    switch result {
+                    case .success:
+                        print("Restaurant saved successfully")
+                        if let index = RestaurantViewController.limitedRestaurants.firstIndex(where: { $0.placeID == currentRestaurant.placeID }) {
+                            RestaurantViewController.limitedRestaurants.remove(at: index)
+                        }
+                        
+                        self.updateUIWithRandomRestaurant()
+                    case .failure(let error):
+                        print("Error saving restaurant: \(error.localizedDescription)")
+                    }
+                }
+            }
+        }
     }
+
+
+
     
+
     func fetchPhotoURL(for placeID: String, completion: @escaping (String?) -> Void) {
         let urlString = "https://maps.googleapis.com/maps/api/place/details/json?place_id=\(placeID)&fields=photo&key=\(APIKey.googlePlaces)"
         guard let url = URL(string: urlString) else {
@@ -223,9 +316,5 @@ class RestaurantViewController: UIViewController, CLLocationManagerDelegate {
         task.resume()
 
     }
-
-    
-
-
 }
    

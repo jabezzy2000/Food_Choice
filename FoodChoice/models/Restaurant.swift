@@ -1,4 +1,4 @@
-struct Restaurant {
+struct Restaurant: Hashable {
     let name: String
     let latitude: Double
     let longitude: Double
@@ -13,5 +13,15 @@ struct Restaurant {
         self.randomFood = randomFood
         self.imageURL = imageURL
         self.placeID = placeID
+    }
+    
+    // Implement the Equatable protocol
+    static func ==(lhs: Restaurant, rhs: Restaurant) -> Bool {
+        return lhs.placeID == rhs.placeID
+    }
+    
+    // Implement the Hashable protocol
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(placeID)
     }
 }
