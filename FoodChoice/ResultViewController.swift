@@ -12,12 +12,17 @@ class ResultViewController: UIViewController {
     @IBOutlet weak var image1: UIImageView!
     @IBOutlet weak var name1: UILabel!
     
+    @IBOutlet weak var mapsButton: UIButton!
     @IBOutlet weak var image2: UIImageView!
     @IBOutlet weak var name2: UILabel!
     
     @IBOutlet weak var image3: UIImageView!
     @IBOutlet weak var name3: UILabel!
     
+    var firstRestaurantLatitude: Double?
+    var firstRestaurantLongitude: Double?
+
+     
     @IBAction func endSession(_ sender: UIButton) {
         let query = ParseRestaurant.query()
         query.find { result in
@@ -39,6 +44,12 @@ class ResultViewController: UIViewController {
         }
 
     }
+    
+    @IBAction func mapsButtonTapped(_ sender: UIButton) {
+        if let latitude = firstRestaurantLatitude, let longitude = firstRestaurantLongitude {
+                    openDirectionsInSafari(latitude: latitude, longitude: longitude)
+                }
+       }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,6 +63,8 @@ class ResultViewController: UIViewController {
                         // Update the UI with the resulting restaurants
                         if let firstRestaurant = restaurants.first {
                             self.name1.text = firstRestaurant.name
+                            self.firstRestaurantLatitude = firstRestaurant.latitude
+                            self.firstRestaurantLongitude = firstRestaurant.longitude
                             if let imageURL = URL(string: firstRestaurant.imageURL!),
                                let imageData = try? Data(contentsOf: imageURL) {
                                 self.image1.image = UIImage(data: imageData)
@@ -80,13 +93,11 @@ class ResultViewController: UIViewController {
             }
     
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    func openDirectionsInSafari(latitude: Double, longitude: Double) {
+        let directionsURL = "https://www.google.com/maps/dir/?api=1&destination=\(latitude),\(longitude)"
+
+        if let url = URL(string: directionsURL) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
 }

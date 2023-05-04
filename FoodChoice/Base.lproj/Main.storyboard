@@ -302,6 +302,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Top Matched" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jsk-Zx-dGm">
+                                <rect key="frame" x="16" y="119" width="139" height="30"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FnG-ev-Zhy">
                                 <rect key="frame" x="308" y="58" width="69" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -335,12 +341,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Top Matched" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jsk-Zx-dGm">
-                                <rect key="frame" x="16" y="119" width="139" height="30"/>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6z9-DF-nFX">
+                                <rect key="frame" x="6" y="637" width="155.33333333333334" height="34.333333333333371"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Open In Maps"/>
+                                <connections>
+                                    <action selector="MapsButton:" destination="6Z8-kn-5Xc" eventType="touchUpInside" id="slg-11-pqU"/>
+                                    <action selector="mapsButtonTapped:" destination="5MT-f1-XHW" eventType="touchUpInside" id="Gon-rd-yRg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Zwf-dM-XpT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -354,16 +362,20 @@
                             <constraint firstItem="ttl-SO-bif" firstAttribute="centerX" secondItem="oVO-YB-ZHL" secondAttribute="centerX" id="PYp-LB-HFh"/>
                             <constraint firstItem="jsk-Zx-dGm" firstAttribute="leading" secondItem="bAs-tF-Mnf" secondAttribute="leadingMargin" id="QD0-CK-1Iz"/>
                             <constraint firstAttribute="bottomMargin" secondItem="oVO-YB-ZHL" secondAttribute="bottom" constant="-9.6666666666666288" id="Qfk-vZ-fzM"/>
+                            <constraint firstItem="6z9-DF-nFX" firstAttribute="leading" secondItem="Zwf-dM-XpT" secondAttribute="leading" constant="6" id="eOE-Xc-Epd"/>
+                            <constraint firstItem="6z9-DF-nFX" firstAttribute="top" secondItem="6HM-aG-FZ5" secondAttribute="bottom" constant="44" id="it0-xh-dCi"/>
                             <constraint firstItem="ttl-SO-bif" firstAttribute="centerX" secondItem="6HM-aG-FZ5" secondAttribute="centerX" id="zBX-LO-8vw"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="jhU-26-uVj"/>
                     <connections>
                         <outlet property="image1" destination="ttl-SO-bif" id="vF7-Fw-bUg"/>
+                        <outlet property="mapsButton" destination="6z9-DF-nFX" id="wcW-rM-YjM"/>
                         <outlet property="name1" destination="6HM-aG-FZ5" id="vTm-jO-LyL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mG0-0A-U4U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="6Z8-kn-5Xc" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="608.39694656488552" y="1379.5774647887324"/>
         </scene>
