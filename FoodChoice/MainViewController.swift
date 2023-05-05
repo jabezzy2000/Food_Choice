@@ -4,19 +4,23 @@ import ParseSwift
 
 class MainViewController: UIViewController {
     var users: Set<String> = []
+    var timer: Timer?
     
     @IBOutlet weak var InvitationTextField: UITextField!
     @IBOutlet weak var GroupSize: UILabel!
     var hasDisplayedInvitations: Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    
         // Do any additional setup after loading the view.
         if !hasDisplayedInvitations {
             fetchGroupSessions()
             hasDisplayedInvitations = true
         }
         printRecipients()
+        
+        
+        startFetchingGroupSessions()
     }
 
     @IBAction func onAddTapped(_ sender: UIButton) {
@@ -112,11 +116,8 @@ class MainViewController: UIViewController {
             query.limit(1).include("recipient").order(.descending("createdAt")).find { result in
                 switch result {
                 case .success(let groupSessions):
-                    // Display the group sessions in the app, e.g., in a table view
                     print("Found \(groupSessions.count) group session.")
                     for groupSession in groupSessions {
-                        print("Group Session: \(groupSession)")
-                        // Call showInvitationAlert() for each invitation on the main thread
                         DispatchQueue.main.async {
                             self.showInvitationAlert(groupSession: groupSession)
                         }
@@ -143,6 +144,20 @@ class MainViewController: UIViewController {
         if segue.identifier == "ShowRestaurantViewController" {
             //Pass information needed in RestaurantViewController
         }
+    }
+    
+    func startFetchingGroupSessions() {
+        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
+            self?.fetchGroupSessions()
+        }
+    }
+    
+    func stopFetchingGroupSessions() {
+        timer?.invalidate()
+    }
+    
+    deinit {
+        stopFetchingGroupSessions()
     }
     /*
     // MARK: - Navigation
