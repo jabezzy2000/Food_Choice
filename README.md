@@ -1,5 +1,12 @@
 # Food_Choice
 
+#Members
+* Phinehas Fuachie
+* Donald Echefu
+* Jabez Agyemang-Prempeh
+* Emmanuel Buckman
+* Voilet Edwards
+
 ## Instructions to make pull request/ collaborate:
 
 * depending on what issue you decide to work on, you assign it to yourself. 
@@ -13,3 +20,9 @@ example: Description: Fixed UI issue #7
 * you can assign reviewers if uncertain about something else merge PR
 
 * repeat steps with other issues
+
+#Videos
+
+
+https://user-images.githubusercontent.com/104809511/236362003-539bb24b-0dd6-41e6-9974-58729abd134e.mp4
+
