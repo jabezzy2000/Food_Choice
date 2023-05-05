@@ -23,11 +23,11 @@ example: Description: Fixed UI issue #7
 
 ## Videos
 
-https://user-images.githubusercontent.com/55097668/236363282-baa7b831-de75-45b3-a000-85f2d6ef5599.mov  https://user-images.githubusercontent.com/104809511/236362003-539bb24b-0dd6-41e6-9974-58729abd134e.mp4
+https://user-images.githubusercontent.com/55097668/236363282-baa7b831-de75-45b3-a000-85f2d6ef5599.mov  
 
 ## Two screens showing how food choice works
 
-
+https://user-images.githubusercontent.com/104809511/236362003-539bb24b-0dd6-41e6-9974-58729abd134e.mp4
 
 
 
